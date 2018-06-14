@@ -73,11 +73,11 @@ win32 {
     !contains(QMAKE_HOST.arch, x86_64) {
         message("Windows 32 bit Platform")
         LIBS += -lXPLM -lXPWidgets
-        XPLDIR = extplane/32
+        XPLDIR = extplane\32
     } else {
         message("Windows 64 bit Platform")
         LIBS += -lXPLM_64 -lXPWidgets_64
-        XPLDIR = extplane/64
+        XPLDIR = extplane\64
     }
 }
 
@@ -96,7 +96,12 @@ CONFIG(debug, debug|release) {
 }
 
 # Copy the built library to the correct x-plane plugin directory
-QMAKE_POST_LINK += $(MKDIR) $$XPLDIR ; $(COPY_FILE) $(TARGET) $$XPLDIR/$$XPLFILE
+win32{
+    QMAKE_POST_LINK += $(MKDIR) $$XPLDIR && $(COPY_FILE) $(TARGET) $$XPLDIR\\$$XPLFILE
+}else{
+    QMAKE_POST_LINK += $(MKDIR) $$XPLDIR ; $(COPY_FILE) $(TARGET) $$XPLDIR/$$XPLFILE
+}
+
 
 SOURCES += main.cpp \
     xplaneplugin.cpp \
