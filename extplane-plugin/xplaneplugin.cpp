@@ -337,8 +337,8 @@ bool XPlanePlugin::loadSituation(QString sitFileLocation) {
 void XPlanePlugin::pluginStop() {
     DEBUG;
     app->processEvents();
-    delete server;
-    server = nullptr;
+//    delete server;
+//    server = nullptr;
     app->quit();
     app->processEvents();
     delete app;

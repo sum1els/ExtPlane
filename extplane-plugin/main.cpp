@@ -37,8 +37,8 @@ PLUGIN_API void XPluginStop() {
     DEBUG;
     XPLMUnregisterFlightLoopCallback(MyFlightLoopCallback, 0);
     globalPlugin->pluginStop();
-    delete globalPlugin;
-    globalPlugin = nullptr;
+    //delete globalPlugin;
+    //globalPlugin = nullptr;
 }
 
 PLUGIN_API void XPluginDisable() {

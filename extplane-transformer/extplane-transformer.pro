@@ -4,6 +4,8 @@ CONFIG += c++11
 CONFIG -= debug_and_release
 RESOURCES += qml.qrc
 
+CONFIG += warn_off
+
 INCLUDEPATH += ../extplane-server
 INCLUDEPATH += $$PWD/../util/
 DEPENDPATH += . ../extplane-server

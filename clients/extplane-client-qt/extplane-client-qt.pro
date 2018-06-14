@@ -4,6 +4,8 @@ QT       -= gui
 TEMPLATE = lib
 CONFIG += c++11
 
+QMAKE_CXXFLAGS_WARN_OFF -= -Wunused-parameter
+
 INCLUDEPATH += $$PWD/../../util/
 
 HEADERS += \

@@ -12,6 +12,8 @@ QMAKE_CXXFLAGS += -DXPLM300=1
 QMAKE_CXXFLAGS += -DXPLM210=1
 QMAKE_CXXFLAGS += -DXPLM200=1
 
+QMAKE_CXXFLAGS_WARN_OFF -= -Wunused-parameter
+
 INCLUDEPATH += $$XPLANE_SDK_PATH/CHeaders/XPLM
 INCLUDEPATH += ../extplane-server
 DEPENDPATH += . ../extplane-server
@@ -70,14 +72,15 @@ win32 {
 # We should test for target arch, not host arch, but this doesn't work. Fix.
 #    !contains(QMAKE_TARGET.arch, x86_64) {
     XPLFILE = win.xpl
+    XPDIRBASE = extplane
     !contains(QMAKE_HOST.arch, x86_64) {
         message("Windows 32 bit Platform")
         LIBS += -lXPLM -lXPWidgets
-        XPLDIR = extplane\32
+        XPLDIR = $$XPDIRBASE\\32
     } else {
         message("Windows 64 bit Platform")
         LIBS += -lXPLM_64 -lXPWidgets_64
-        XPLDIR = extplane\64
+        XPLDIR = $$XPDIRBASE\\64
     }
 }
 
@@ -97,6 +100,10 @@ CONFIG(debug, debug|release) {
 
 # Copy the built library to the correct x-plane plugin directory
 win32{
+    exists($$XPLDIR\\$$XPLFILE){
+        message("Warning: Another build already exists, file : $$XPLDIR\\$$XPLFILE : it will be overwritten")
+        QMAKE_POST_LINK += rmdir $$XPDIRBASE /s /q &&
+    }
     QMAKE_POST_LINK += $(MKDIR) $$XPLDIR && $(COPY_FILE) $(TARGET) $$XPLDIR\\$$XPLFILE
 }else{
     QMAKE_POST_LINK += $(MKDIR) $$XPLDIR ; $(COPY_FILE) $(TARGET) $$XPLDIR/$$XPLFILE

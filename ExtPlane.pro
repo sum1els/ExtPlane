@@ -4,6 +4,8 @@ SUBDIRS = extplane-server \
     extplane-transformer
 CONFIG += ordered
 
+QMAKE_CXXFLAGS_WARN_OFF -= -Wunused-parameter
+
 include(common.pri)
 
 defined(XPLANE_SDK_PATH, var) {

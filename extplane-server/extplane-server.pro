@@ -7,6 +7,8 @@ DESTDIR = $$PWD
 QT       += core network
 QT       -= gui
 
+CONFIG += warn_off
+
 INCLUDEPATH += $$PWD/../util/
 
 SOURCES += tcpserver.cpp \
